@@ -1,0 +1,46 @@
+# Main program.  Run this file to run the app
+---
+# Include the other files
+include:
+  - C4questions.yml
+  - C4servicelist.yml
+  - C4display_services.yml
+---
+# Welcome Screen
+mandatory: True
+question: Homelessness Service Finder
+subquestion: |
+  This app will ask you some questions and then provide you
+  with a list of homelessness service providers close to you.
+buttons:
+  - "OK let's go!": continue
+  - Exit: exit
+---
+# Mandatory code block that drives the app
+mandatory: True
+code: |
+  # All we need here is a call to the final screen.  
+  # Docassemble will then manage calling the code 
+  # block that displays the selected services
+  final_screen
+---
+# Final Screen
+event: final_screen
+question: Here are your services
+subquestion: |
+  Here are your services
+
+  ${services_table}
+---
+# This table block is used to display the
+# services table.  It sets where the data
+# for the table is and which columns of that
+# data we will display.  
+table: services_table
+rows: C4display_services
+columns: 
+  - Name: |
+      row_item['service_name']
+  - Phone Number: |
+      row_item['phone_number']
+---

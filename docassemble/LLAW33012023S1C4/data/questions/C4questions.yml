@@ -1,0 +1,69 @@
+#
+# Contains the questions to be asked in the app
+#
+
+# For the Adult/young person question we will ask the person for their age and then
+# we'll use a code block to work out whether they're an adult or minor.  We do this 
+# because age is a question of fact whereas determining an adult or minor is a 
+# question of legal opinion.  Where possible, we should always ask questions of
+# fact of our users and let the app make the legal decisions.
+---
+# Ask the question...
+question: Age
+fields:
+  - Please enter your age: C4age
+---
+#  And determine their legal status here
+code: |
+  if C4age < 18:
+    C4is_adult = False
+  else:
+    C4is_adult = True
+---
+# ATSI status question.
+# We ask this as a true/false question in the interests of simplicity.  
+# A more sophisticated implementation would
+# ask whether a user was Aboriginal, Torres Strait Islander,
+# neither or preferred not to specify.
+# However, our service list only marks a service as True or False with
+# regards to catering towards ATSI people so we use this simple question.
+# Beacuase we store a true/false as the answer it makes it easier to 
+# compare the answer in this variable to the 'indigenous' tag in the 
+# service list
+question: Aboriginal or Torres Strait Islander
+subquestion: |
+  Do you identify as Aboriginal or Torres Strait Islander?
+yesno: C4atsi_status
+---
+# Accommodation Type
+# In this question we present plain English to the user (eg: 'For myself') but
+# we store the response as either 'Singles' or 'Families'.  Note that both these 
+# values match exactly with the 'accommodation_type' data field in our service list.
+# By matching them up now we make it eaiser for ouselves when we need to compare the 
+# answer to this question against the values in the service list.
+question: Accommodation Type
+subquestion: |
+  Are you seeking accommodation for yourself or for your family?
+fields:
+  - no label: C4accommodation_type
+    datatype: radio
+    choices:
+      - For myself: Singles
+      - For my family: Families
+---
+# Location question
+# We use checkboxes to allow a user to select more than one location.  This
+# allows the user to look at services all over Adelaide in case they can't 
+# find one close to them.  
+#
+# Note the location names match exactly with the values in the service list.
+question: Location
+subquestion: |
+  In which location(s) are you looking for services?  You may specify more
+  than one
+fields:
+  - no label: C4location
+    datatype: checkboxes
+    choices:
+      - Adelaide North
+      - Adelaide South

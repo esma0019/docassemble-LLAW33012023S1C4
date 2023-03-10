@@ -1,0 +1,58 @@
+---
+variable name: C4services
+use objects: True
+data:
+  - service_name: Bramwell House - Adelaide Domestic Violence Crisis Accommodation Service
+    phone_number: 8379 7223
+    location:
+      - Adelaide North
+      - Adelaide South
+    caters_for:
+      - Adults
+      - Minors
+    indigenous: False
+    accomodation_type:
+      - Families
+      - Singles
+  - service_name: Foyer Port Adelaide
+    phone_number: 8447 1090
+    location:
+      - Adelaide North
+    caters_for:
+      - Adults
+      - Minors
+    indigenous: False
+    accomodation_type:
+      - Families
+      - Singles
+  - service_name: Kurlana Tampawardli (Aboriginal Transitional Housing and Support Service)
+    phone_number: 8202 5610
+    location:
+      - Adelaide North
+    caters_for:
+      - Adults
+      - Minors
+    indigenous: True
+    accomodation_type:
+      - Families
+      - Singles
+  - service_name: Inner North and North East Youth Homelessness Service
+    phone_number: 8397 9333
+    location:
+      - Adelaide North
+    caters_for:
+      - Minors
+    indigenous: False
+    accomodation_type:
+      - Singles
+  - service_name: Inner and Outer Northern Homelessness Service
+    phone_number: 1800 569 086
+    location:
+      - Adelaide North
+    caters_for:
+      - Adults
+      - Minors
+    indigenous: False
+    accomodation_type:
+      - Families
+      - Singles

@@ -1,0 +1,73 @@
+# This file contains the blocks to process
+# the services list and construct a new list
+# (called C4display_services) with only the services
+# we want displayed.
+---
+# First thing we do is tell Docassemble (or 'declare') the 
+# list where we want to store the display list.  This 'object'
+# declaration is a little complex.  It is discussed briefly 
+# in the C5.03 videos but you don't need to understand 
+# this declaration.  Just take it at face value and that
+# it works.  That's all you need for this course.
+objects:
+  - C4display_services: DAList.using(there_are_any=True, auto_gather=False)
+---
+# This code block iterates through SAHservices and 
+# adds 
+code: |
+  # This is the beginning of the loop that iterates over C4services
+  for C4a_service in C4services:
+    # In here we put what we want to for each iteration.
+    # We want to add services that match our criteria only.  We do that
+    # be setting some boolean (true/false) variables which we can use later
+    # when we do the adding part.
+
+    # First test - Whether the service caters for indigenous people
+    # If the user identifies as Aboriginal or Torres Strait Islander
+    # then we want to display all services, regardless of whether 
+    # they cater for ATSI people or not.
+    # If the user does not identify as ATSI then we do not want to 
+    # display services that cater only for ATSI people.
+    # 
+    # C4atsi_status is stores the answer to the indigenous question
+    # asked of the user. It is a yesno question which means its value
+    # is true or false. 
+    if C4atsi_status:
+      # If C4atsi_status is true then we always set indigenous_ok to true.
+      # This is because the user has identified as ATSI so we want to
+      # include all services.
+      indigenous_ok = True
+    elif not C4atsi_status and not C4a_service['indigenous']:
+      # If C4atsi_status is false and the 'indigenous' tag in the service
+      # we're iterating on is also false we also set indigenous_ok to True.
+      # That is, we're only setting this to true if the person doesn't
+      # identify as ATSI and the service does not cater for ATSI people
+      indigenous_ok = True
+    else:
+      # If we're here it means that C4atsi_status must be false and the 
+      # indigenous tag in the service is true.  We don't want to include 
+      # a service that caters for indigenous people if the user is not
+      # indigenous, so we set indigenous_ok to false.
+      indigenous_ok = False
+
+    # Other tests for age and accommodation type should go here.
+    # Delete the next two lines and replace them with your code
+    age_ok = True
+    accommodation_type_ok = True
+
+    
+    # The test for location should go here.  Delete the next line and replace it
+    # with your own code
+    location_ok = True
+
+    # Finally we bring all the tests together to see if this record should
+    # be added to the C4display_services list
+    # These two lines should be the last lines in your loop
+    if indigenous_ok and age_ok and accommodation_type_ok and location_ok:
+      C4display_services.append(C4a_service)
+
+  # We are now outside the main loop.  The last thing we need to do is to
+  # set 'gathered' to true.  This is part of how Docassemble works and you
+  # can take this at face value
+  C4display_services.gathered = True
+---
